@@ -72,6 +72,14 @@ fn print_pdf(
   return "Unsupported OS".to_string();
 }
 
+#[tauri::command(rename_all = "snake_case")]
+// this will be accessible with `invoke('plugin:printer|remove_files')`.
+fn remove_files(paths: Vec<String>) -> String {
+  if cfg!(windows) {
+    return windows::remove_files(paths);
+  }
+  return "Unsupported OS".to_string();
+}
 
 #[tauri::command(rename_all = "snake_case")]
 // this will be accessible with `invoke('plugin:printer|get_jobs')`.
@@ -138,6 +146,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
       get_printers, 
       get_printers_by_name,
       print_pdf,
+      remove_files,
       get_jobs,
       get_jobs_by_id,
       resume_job,

@@ -99,6 +99,15 @@ pub fn print_pdf (options: PrintOptions) -> String {
     return result;
 }
 
+/**
+ * Remove files
+ */
+pub fn remove_files (paths: Vec<String>) -> String {
+    for path in paths {
+        let _ = remove_file(&path);
+    }
+    return "Success".to_string();
+ }
 
 /**
  * Get printer job on windows using powershell
